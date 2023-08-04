@@ -14,9 +14,7 @@ class MikrotikModel extends CI_Model
         $api->disconnect();
 
         $paket = array(
-            '2M' => '2M', 'EXPIRED' => 'EXPIRED', 'INET-4M' => 'INET-4M', 'INET-10M' => 'INET-10M',
-            'INET-20M' => 'INET-20M', 'INET-30M' => 'INET-50M', 'INET-100M' => 'INET-100M',
-            'INET-300M' => 'INET-300M', 'profile1' => 'profile1', 'profile20' => 'profile20'
+            'HOME 5' => 'HOME 5', 'HOME 10' => 'HOME 10', 'HOME 20' => 'HOME 20'
         );
 
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.nama_customer, 
@@ -85,6 +83,7 @@ class MikrotikModel extends CI_Model
                     "nama_sales"        => 0,
                     "created_at"        => date('Y-m-d H:i:s', time()),
                     "updated_at"        => date('Y-m-d H:i:s', time()),
+                    "deskripsi_customer" => $valueSecret['comment'],
                 ]);
 
                 $response[$keySecret] = [
@@ -107,6 +106,7 @@ class MikrotikModel extends CI_Model
                     'nama_sales'        => '0',
                     'created_at'        => date('Y-m-d H:i:s', time()),
                     'updated_at'        => date('Y-m-d H:i:s', time()),
+                    "deskripsi_customer" => $valueSecret['comment'],
                 ];
             }
         }
