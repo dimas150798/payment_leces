@@ -103,7 +103,7 @@ class C_EditPelanggan extends CI_Controller
                 ".id" => $id_pppoe,
                 "name" => $name_pppoe,
                 "password" => $password_pppoe,
-                "service" => "any",
+                "service" => "pppoe",
                 "profile" => $nama_paket,
                 "comment" => $deskripsi_customer,
             ]);

@@ -124,7 +124,7 @@ class C_TambahPelanggan extends CI_Controller
                 $api->comm('/ppp/secret/add', [
                     "name" => $name_pppoe,
                     "password" => $password_pppoe,
-                    "service" => "any",
+                    "service" => "pppoe",
                     "profile" => $nama_paket,
                     "comment" => $deskripsi_customer,
                 ]);
