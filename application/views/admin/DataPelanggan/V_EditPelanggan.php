@@ -84,7 +84,7 @@
                                         <select id="nama_paket" name="nama_paket" class="form-control" required>
                                             <?php foreach ($DataPaket as $dataPaket) : ?>
                                                 <option value="">Pilih Paket :</option>
-                                                <option value="<?php echo $dataPaket['deskripsi_paket'] ?>" <?= $data['nama_paket'] == $dataPaket['nama_paket'] ? "selected" : null ?>><?php echo $dataPaket['nama_paket'] ?>
+                                                <option value="<?php echo $dataPaket['nama_paket'] ?>" <?= $data['nama_paket'] == $dataPaket['nama_paket'] ? "selected" : null ?>><?php echo $dataPaket['nama_paket'] ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>

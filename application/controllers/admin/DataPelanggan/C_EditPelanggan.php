@@ -77,6 +77,11 @@ class C_EditPelanggan extends CI_Controller
         $data['DataArea']       = $this->M_Area->DataArea();
         $data['DataSales']      = $this->M_Sales->DataSales();
 
+
+        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaketDesk($nama_paket);
+        $nama_paketMikrotik     = $GetDataPaket->deskripsi_paket;
+
+
         // Rules form validation
         $this->form_validation->set_rules('nama_customer', 'Nama Customer', 'required');
         $this->form_validation->set_rules('start_date', 'Start Date', 'required');
@@ -104,7 +109,7 @@ class C_EditPelanggan extends CI_Controller
                 "name" => $name_pppoe,
                 "password" => $password_pppoe,
                 "service" => "pppoe",
-                "profile" => $nama_paket,
+                "profile" => $nama_paketMikrotik,
                 "comment" => $deskripsi_customer,
             ]);
             $api->disconnect();

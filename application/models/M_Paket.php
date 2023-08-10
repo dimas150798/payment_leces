@@ -40,4 +40,20 @@ class M_Paket extends CI_Model
             return false;
         }
     }
+
+    public function CheckDuplicatePaketDesk($nama_paket)
+    {
+        $this->db->select('nama_paket, id_paket, harga_paket, deskripsi_paket');
+        $this->db->where('nama_paket', $nama_paket);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_paket');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
 }
