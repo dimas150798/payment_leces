@@ -82,7 +82,7 @@
                                     <select id="nama_paket" name="nama_paket" class="form-control" required>
                                         <option value="">Pilih Paket :</option>
                                         <?php foreach ($DataPaket as $dataPaket) : ?>
-                                            <option value="<?php echo $dataPaket['nama_paket']; ?>">
+                                            <option value="<?php echo $dataPaket['deskripsi_paket']; ?>">
                                                 <?php echo $dataPaket['nama_paket']; ?>
                                             </option>
                                         <?php endforeach; ?>
