@@ -38,7 +38,7 @@ class C_TambahPelanggan extends CI_Controller
         $kode_customer          = $this->input->post('kode_customer');
         $phone_customer         = $this->input->post('phone_customer');
         $nama_customer          = $this->input->post('nama_customer');
-        $nama_paket             = $this->input->post('nama_paket');
+        $deskripsi_paket        = $this->input->post('deskripsi_paket');
         $name_pppoe             = $this->input->post('name_pppoe');
         $password_pppoe         = $this->input->post('password_pppoe');
         $alamat_customer        = $this->input->post('alamat_customer');
@@ -48,8 +48,10 @@ class C_TambahPelanggan extends CI_Controller
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
         $nama_sales             = $this->input->post('nama_sales');
 
-        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($nama_paket);
+        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($deskripsi_paket);
         $price_paket            = $GetDataPaket->harga_paket;
+
+        $nama_paket             = $GetDataPaket->nama_paket;
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -94,7 +96,7 @@ class C_TambahPelanggan extends CI_Controller
         $this->form_validation->set_rules('name_pppoe', 'Name PPPOE', 'required');
         $this->form_validation->set_rules('password_pppoe', 'Password PPPOE', 'required');
         $this->form_validation->set_rules('phone_customer', 'Phone Customer', 'required');
-        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
+        $this->form_validation->set_rules('deskripsi_customer', 'Nama Paket', 'required');
         $this->form_validation->set_rules('nama_area', 'Nama Area', 'required');
         $this->form_validation->set_rules('nama_sales', 'Nama Sales', 'required');
         $this->form_validation->set_rules('email_customer', 'Email Customer', 'required');
@@ -125,7 +127,7 @@ class C_TambahPelanggan extends CI_Controller
                     "name" => $name_pppoe,
                     "password" => $password_pppoe,
                     "service" => "pppoe",
-                    "profile" => $nama_paket,
+                    "profile" => $deskripsi_paket,
                     "comment" => $deskripsi_customer,
                 ]);
                 $api->disconnect();

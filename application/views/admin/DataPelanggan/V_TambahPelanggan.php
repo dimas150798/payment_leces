@@ -78,8 +78,8 @@
 
                             <div class="row">
                                 <div class="col-sm-4 mt-3">
-                                    <label for="nama_paket" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
-                                    <select id="nama_paket" name="nama_paket" class="form-control" required>
+                                    <label for="deskripsi_paket" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
+                                    <select id="nama_paket" name="deskripsi_paket" class="form-control" required>
                                         <option value="">Pilih Paket :</option>
                                         <?php foreach ($DataPaket as $dataPaket) : ?>
                                             <option value="<?php echo $dataPaket['deskripsi_paket']; ?>">

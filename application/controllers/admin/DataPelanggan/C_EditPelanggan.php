@@ -38,7 +38,7 @@ class C_EditPelanggan extends CI_Controller
         $kode_customer          = $this->input->post('kode_customer');
         $phone_customer         = $this->input->post('phone_customer');
         $nama_customer          = $this->input->post('nama_customer');
-        $nama_paket             = $this->input->post('nama_paket');
+        $deskripsi_paket        = $this->input->post('deskripsi_paket');
         $name_pppoe             = $this->input->post('name_pppoe');
         $password_pppoe         = $this->input->post('password_pppoe');
         $alamat_customer        = $this->input->post('alamat_customer');
@@ -47,6 +47,15 @@ class C_EditPelanggan extends CI_Controller
         $nama_area              = $this->input->post('nama_area');
         $deskripsi_customer     = $this->input->post('deskripsi_customer');
         $nama_sales             = $this->input->post('nama_sales');
+
+        // Memanggil mysql dari model
+        $data['DataPelanggan']  = $this->M_Pelanggan->EditPelanggan($id_customer);
+        $data['DataPaket']      = $this->M_Paket->DataPaket();
+        $data['DataArea']       = $this->M_Area->DataArea();
+        $data['DataSales']      = $this->M_Sales->DataSales();
+
+        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($deskripsi_paket);
+        $nama_paket             = $GetDataPaket->nama_paket;
 
         // Menyimpan data pelanggan ke dalam array
         $dataPelanggan = array(
@@ -71,16 +80,6 @@ class C_EditPelanggan extends CI_Controller
             'id_customer'       => $id_customer
         );
 
-        // Memanggil mysql dari model
-        $data['DataPelanggan']  = $this->M_Pelanggan->EditPelanggan($id_customer);
-        $data['DataPaket']      = $this->M_Paket->DataPaket();
-        $data['DataArea']       = $this->M_Area->DataArea();
-        $data['DataSales']      = $this->M_Sales->DataSales();
-
-
-        $GetDataPaket           = $this->M_Paket->CheckDuplicatePaketDesk($nama_paket);
-        $nama_paketMikrotik     = $GetDataPaket->deskripsi_paket;
-
 
         // Rules form validation
         $this->form_validation->set_rules('nama_customer', 'Nama Customer', 'required');
@@ -89,7 +88,7 @@ class C_EditPelanggan extends CI_Controller
         $this->form_validation->set_rules('name_pppoe', 'Name PPPOE', 'required');
         $this->form_validation->set_rules('password_pppoe', 'Password PPPOE', 'required');
         $this->form_validation->set_rules('phone_customer', 'Phone Customer', 'required');
-        $this->form_validation->set_rules('nama_paket', 'Nama Paket', 'required');
+        $this->form_validation->set_rules('deskripsi_paket', 'Nama Paket', 'required');
         $this->form_validation->set_rules('nama_area', 'Nama Area', 'required');
         $this->form_validation->set_rules('nama_sales', 'Nama Sales', 'required');
         $this->form_validation->set_rules('email_customer', 'Email Customer', 'required');
@@ -109,7 +108,7 @@ class C_EditPelanggan extends CI_Controller
                 "name" => $name_pppoe,
                 "password" => $password_pppoe,
                 "service" => "pppoe",
-                "profile" => $nama_paketMikrotik,
+                "profile" => $deskripsi_paket,
                 "comment" => $deskripsi_customer,
             ]);
             $api->disconnect();
