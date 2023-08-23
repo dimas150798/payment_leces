@@ -50,7 +50,6 @@ class C_TambahPelanggan extends CI_Controller
 
         $GetDataPaket           = $this->M_Paket->CheckDuplicatePaket($deskripsi_paket);
         $price_paket            = $GetDataPaket->harga_paket;
-
         $nama_paket             = $GetDataPaket->nama_paket;
 
         // Menyimpan data pelanggan ke dalam array
