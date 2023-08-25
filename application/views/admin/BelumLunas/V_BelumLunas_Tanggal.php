@@ -28,7 +28,7 @@ if (!function_exists('changeDateFormat')) {
                                 <select name="forma" id='SelectOption' class="form-control">
                                     <option value="day"><a href="#">Day</a></option>
                                     <option value="monthly"><a href="#">Monthly</a></option>
-                                    <option value="custom_date"><a href="#">Custom Date</a></option>
+                                    <!-- <option value="custom_date"><a href="#">Custom Date</a></option> -->
                                 </select>
                             </div>
                         </div>

@@ -41,9 +41,6 @@
 		if (val === 'monthly') {
 			window.open('<?php echo base_url('admin/BelumLunas/C_BelumLunas') ?>', '_self');
 		}
-		if (val === 'custom_date') {
-			window.open('<?php echo base_url('admin/BelumLunas/C_BelumLunas_CustomDate') ?>', '_self');
-		}
 	});
 </script>
 
