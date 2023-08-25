@@ -9,7 +9,7 @@ if (!function_exists('changeDateFormat')) {
     }
 }
 
-class C_BelumLunas extends CI_Controller
+class C_BelumLunas_Tanggal extends CI_Controller
 {
     public function __construct()
     {
@@ -29,82 +29,67 @@ class C_BelumLunas extends CI_Controller
         // clear session login
         $this->session->unset_userdata('LoginBerhasil_icon');
 
-        if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
-            $bulanGET                   = $_GET['bulan'];
-            $tahunGET                   = $_GET['tahun'];
+        if ((isset($_GET['day']) && $_GET['day'] != '')) {
+            $dayGET                     = $_GET['day'];
 
-            // Menampilkan tanggal pada akhir bulan GET
-            $tanggal_akhir_GET          = cal_days_in_month(CAL_GREGORIAN, $bulanGET, $tahunGET);
+            $convertDate                = explode("-", $dayGET);
 
-            // Menggabungkan tanggal, bulan, tahun
-            $TanggalAkhirGET            = $tahunGET . '-' . $bulanGET . '-' . $tanggal_akhir_GET;
+            $tahun                      = $convertDate[0];
+            $bulan                      = $convertDate[1];
+            $tanggal                    = $convertDate[2];
 
             // Menyimpan Dalam Session
-            $this->session->set_userdata('bulanGET', $bulanGET);
-            $this->session->set_userdata('tahunGET', $tahunGET);
-            $this->session->set_userdata('TanggalAkhirGET', $TanggalAkhirGET);
+            $this->session->set_userdata('dayGET', $dayGET);
+            $this->session->set_userdata('tahunGET', $tahun);
+            $this->session->set_userdata('bulanGET', $bulan);
+            $this->session->set_userdata('tanggalGET', $tanggal);
 
-            // Memanggil mysql dari model
-            $data['BelumLunas']         = $this->M_BelumLunas->BelumLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
-            $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
-            $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunas($bulanGET, $tahunGET, $TanggalAkhirGET);
+            $data['dayGET']             = $dayGET;
 
-            // Menyimpan query di dalam data
-            $data['bulanGET']           = $bulanGET;
-            $data['tahunGET']           = $tahunGET;
-            $data['NominalBelumLunas']  = $NominalBelumLunas->hargaPaket;
+            $data['BelumLunas']         = $this->M_BelumLunas->BelumLunasPertanggal($dayGET);
+            $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunasPertanggal($dayGET);
+            // $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($dayGET);
+            $data['NominalBelumLunas']   = $NominalBelumLunas->harga_paket;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/BelumLunas/V_BelumLunas', $data);
+            $this->load->view('admin/BelumLunas/V_BelumLunas_Tanggal', $data);
             $this->load->view('template/V_FooterBelumLunas', $data);
         } else {
             date_default_timezone_set("Asia/Jakarta");
-            $bulan                      = date("m");
-            $tahun                      = date("Y");
+            $day                        = date("Y-m-d");
 
-            // Menampilkan tanggal pada akhir bulan
-            $tanggal_akhir              = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+            $convertDate                = explode("-", $day);
 
-            // Menggabungkan tanggal, bulan, tahun
-            $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+            $tahun                      = $convertDate[0];
+            $bulan                      = $convertDate[1];
+            $tanggal                    = $convertDate[2];
 
             // Menyimpan Dalam Session
-            $this->session->set_userdata('bulan', $bulan);
+            $this->session->set_userdata('day', $day);
             $this->session->set_userdata('tahun', $tahun);
-            $this->session->set_userdata('TanggalAkhir', $TanggalAkhir);
+            $this->session->set_userdata('bulan', $bulan);
+            $this->session->set_userdata('tanggal', $tanggal);
 
-            // Memanggil mysql dari model
-            $data['BelumLunas']         = $this->M_BelumLunas->BelumLunas($bulan, $tahun, $TanggalAkhir);
-            $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunas($bulan, $tahun, $TanggalAkhir);
-            $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunas($bulan, $tahun, $TanggalAkhir);
+            $data['day']                = $day;
 
-            // Menyimpan query di dalam data
-            $data['bulan']              = $bulan;
-            $data['tahun']              = $tahun;
-            $data['NominalBelumLunas']  = $NominalBelumLunas->hargaPaket;
+            $data['BelumLunas']         = $this->M_BelumLunas->BelumLunasPertanggal($day);
+            $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunasPertanggal($day);
+
+            // $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($day);
+            $data['NominalBelumLunas']   = $NominalBelumLunas->harga_paket;
 
             $this->load->view('template/header', $data);
             $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/BelumLunas/V_BelumLunas', $data);
+            $this->load->view('admin/BelumLunas/V_BelumLunas_Tanggal', $data);
             $this->load->view('template/V_FooterBelumLunas', $data);
         }
     }
 
     public function GetBelumLunas()
     {
-        date_default_timezone_set("Asia/Jakarta");
-        $bulan                      = date("m");
-        $tahun                      = date("Y");
-
-        // Menampilkan tanggal pada akhir bulan
-        $tanggal_akhir              = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
-
-        // Menggabungkan tanggal, bulan, tahun
-        $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
-
-        if ($this->session->userdata('tahunGET') == NULL && $this->session->userdata('bulanGET') == NULL) {
-            $result        = $this->M_BelumLunas->BelumLunas($bulan, $tahun, $TanggalAkhir);
+        if ($this->session->userdata('dayGET') == NULL) {
+            $result        = $this->M_BelumLunas->BelumLunasPertanggal($this->session->userdata('day'));
 
             $no = 0;
 
@@ -116,10 +101,8 @@ class C_BelumLunas extends CI_Controller
                 $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
-
-                $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
+                $row[] = '<div class="text-center">' . strtoupper($dataCustomer['nama_paket']) . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-
                 $row[] =
                     '<div class="text-center">
                 <div class="btn-group">
@@ -127,8 +110,7 @@ class C_BelumLunas extends CI_Controller
                         Opsi
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
-                        <a onclick="Payment(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
-                        <a onclick="KirimWA(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim Tagihan</a>
+                        <a onclick="PaymentPertanggal(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
                     </div>
                 </div>
                 </div>';
@@ -141,7 +123,7 @@ class C_BelumLunas extends CI_Controller
 
             $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
         } else {
-            $result        = $this->M_BelumLunas->BelumLunas($this->session->userdata('bulanGET'), $this->session->userdata('tahunGET'), $this->session->userdata('TanggalAkhirGET'));
+            $result        = $this->M_BelumLunas->BelumLunasPertanggal($this->session->userdata('dayGET'));
 
             $no = 0;
 
@@ -153,10 +135,8 @@ class C_BelumLunas extends CI_Controller
                 $row[] = $dataCustomer['nama_customer'];
                 $row[] = $dataCustomer['name_pppoe'];
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
-
-                $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
+                $row[] = '<div class="text-center">' . strtoupper($dataCustomer['nama_paket']) . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">
@@ -164,9 +144,8 @@ class C_BelumLunas extends CI_Controller
                                 Opsi
                             </button>
                             <div class="dropdown-menu text-black" style="background-color:aqua;">
-                                <a onclick="Payment(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
-                                <a onclick="KirimWA(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim Tagihan</a>
-                            </div>
+                            <a onclick="PaymentPertanggal(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Lunasi Pelanggan</a>
+                        </div>
                         </div>
                     </div>';
                 $data[] = $row;
