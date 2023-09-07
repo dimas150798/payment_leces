@@ -50,6 +50,7 @@ class C_DataPelanggan extends CI_Controller
 
         foreach ($result as $dataCustomer) {
             $StartDate = $dataCustomer['start_date'] == NULL;
+            $StatusMikrotik = $dataCustomer['disabled'] == 'true';
 
             $row = array();
             $row[] = ++$no;
@@ -58,6 +59,8 @@ class C_DataPelanggan extends CI_Controller
             $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
             $row[] = '<div class="text-center">' . ($StartDate ? '<span class="badge bg-danger">DATA KOSONG</span>' : changeDateFormat('d-m-Y', $dataCustomer['start_date'])) . '</div>';
+            $row[] = '<div class="text-center">' . ($StatusMikrotik ? '<span class="badge bg-danger">DISABLED</span>' : '<span class="badge bg-success">ENABLE</span>') . '</div>';
+
             $row[] =
                 '<div class="text-center">
                 <div class="btn-group">

@@ -39,6 +39,7 @@ class MikrotikModel extends CI_Model
                     $status = true;
 
                     $this->db->update("data_customer", ['id_pppoe' => $valueSecret['.id']], ['id_customer' => $value['id_customer']]);
+                    $this->db->update("data_customer", ['disabled' => $valueSecret['disabled']], ['id_customer' => $value['id_customer']]);
 
                     $response[$keySecret] = [
                         'id_customer'       => $value['id_customer'],
@@ -185,7 +186,7 @@ class MikrotikModel extends CI_Model
         }
     }
 
-    public function TerminasiAuto($bulan, $tahun, $tanggalAkhir)
+    public function TerminasiAuto($bulan, $tahun, $TanggalAkhir, $tanggal)
     {
         $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
         data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -200,8 +201,9 @@ class MikrotikModel extends CI_Model
         LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
         AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
 
-        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$tanggalAkhir' AND
+        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$TanggalAkhir' AND
         data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+        AND DAY(data_customer.start_date) = '$tanggal' AND data_customer.disabled = 'false'
 
         GROUP BY data_customer.name_pppoe
         ORDER BY DAY(data_customer.start_date) ASC
@@ -209,10 +211,11 @@ class MikrotikModel extends CI_Model
 
         foreach ($getData as $data) {
             date_default_timezone_set("Asia/Jakarta");
-            $tanggalNow                    = date('d');
+            $timeNow = date('H:i:s');
+            $timeOut = date('22:00:00');
 
             if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                if ($tanggalNow == 11) {
+                if ($timeNow > $timeOut) {
                     // disable secret dan active otomatis 
                     $api = connect();
                     $api->comm('/ppp/secret/set', [
@@ -224,13 +227,6 @@ class MikrotikModel extends CI_Model
                     $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
                     $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
                     $api->disconnect();
-
-                    // Notifikasi Terminasi Auto Berhasil
-                    $this->session->set_flashdata('DuplicateName_icon', 'success');
-                    $this->session->set_flashdata('DuplicateName_title', 'Terminasi Otomatis Berhasil');
-                    $this->session->set_flashdata('DuplicateName_text', 'Fitur Aktif Setiap Tanggal 11');
-
-                    return $getData;
                 }
             }
         }

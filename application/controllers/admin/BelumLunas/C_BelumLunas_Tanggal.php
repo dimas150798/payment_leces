@@ -48,7 +48,7 @@ class C_BelumLunas_Tanggal extends CI_Controller
 
             $data['BelumLunas']         = $this->M_BelumLunas->BelumLunasPertanggal($dayGET);
             $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunasPertanggal($dayGET);
-            // $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($dayGET);
+            $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($dayGET);
             $data['NominalBelumLunas']   = $NominalBelumLunas->harga_paket;
 
             $this->load->view('template/header', $data);
@@ -76,7 +76,7 @@ class C_BelumLunas_Tanggal extends CI_Controller
             $data['BelumLunas']         = $this->M_BelumLunas->BelumLunasPertanggal($day);
             $data['JumlahBelumLunas']   = $this->M_BelumLunas->JumlahBelumLunasPertanggal($day);
 
-            // $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($day);
+            $NominalBelumLunas          = $this->M_BelumLunas->NominalBelumLunasPertanggal($day);
             $data['NominalBelumLunas']   = $NominalBelumLunas->harga_paket;
 
             $this->load->view('template/header', $data);

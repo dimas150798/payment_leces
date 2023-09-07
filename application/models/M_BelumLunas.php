@@ -270,17 +270,16 @@ class M_BelumLunas extends CI_Model
 
         if ($bulan == 02 && $tanggal == 28) {
             $result   = $this->db->query("SELECT 
-                   SUM(paket.price) AS harga_paket
+                   SUM(data_paket.harga_paket) AS harga_paket
            
-                   FROM client 
-                   LEFT JOIN paket ON client.id_paket = paket.id
-                   LEFT JOIN data_pembayaran ON client.name_pppoe = data_pembayaran.nama
-           
-                   AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
-                   
-                   WHERE client.start_date BETWEEN '2020-01-01' AND '$day'
-                   AND data_pembayaran.transaction_time IS NULL AND  client.stop_date IS NULL
-                   AND paket.name != 'Free 20 Mbps' AND DAY(client.start_date) >= '$tanggal'
+                   FROM data_customer
+                        LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+                        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+                        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+
+                        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$day' AND
+                        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+                        AND DAY(data_customer.start_date) >= '$tanggal'
                    
                    ");
 
@@ -292,17 +291,16 @@ class M_BelumLunas extends CI_Model
             }
         } else {
             $result   = $this->db->query("SELECT 
-                   SUM(paket.price) AS harga_paket
+                   SUM(data_paket.harga_paket) AS harga_paket
            
-                   FROM client 
-                   LEFT JOIN paket ON client.id_paket = paket.id
-                   LEFT JOIN data_pembayaran ON client.name_pppoe = data_pembayaran.nama
-           
-                   AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
-                   
-                   WHERE client.start_date BETWEEN '2020-01-01' AND '$day'
-                   AND data_pembayaran.transaction_time IS NULL AND  client.stop_date IS NULL
-                   AND paket.name != 'Free 20 Mbps' AND DAY(client.start_date) = '$tanggal'
+                   FROM data_customer
+                        LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+                        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+                        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+
+                        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$day' AND
+                        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+                        AND DAY(data_customer.start_date) = '$tanggal'
                    
                    ");
 

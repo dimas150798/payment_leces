@@ -73,6 +73,7 @@ if (!function_exists('changeDateFormat')) {
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">Nama Paket</th>
                                         <th class="text-center">Date Registrasi</th>
+                                        <th class="text-center">status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
