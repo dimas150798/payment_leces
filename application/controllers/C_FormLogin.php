@@ -80,7 +80,36 @@ class C_FormLogin extends CI_Controller
         }
     }
 
-    public function insertCustomer()
+    public function TerminasiAuto()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        // Menampilkan tanggal sekarang
+        $toDay = date('Y-m-d');
+
+        // Memisahkan Tanggal
+        $pecahDay = explode("-", $toDay);
+
+        $tahun = $pecahDay[0];
+        $bulan = $pecahDay[1];
+        $tanggal = $pecahDay[2];
+
+        // Menampilkan tanggal pada akhir bulan
+        $tanggal_akhir = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+
+        // Menggabungkan tanggal, bulan, tahun
+        $TanggalAkhir = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
+
+        $data['dataTerminasi'] = $this->MikrotikModel->TerminasiAuto($bulan, $tahun, $TanggalAkhir, $tanggal);
+
+        $data['bulan'] = $bulan;
+        $data['tahun'] = $tahun;
+
+        // $this->load->view('template/header', $data);
+        // $this->load->view('V_TerminasiAuto', $data);
+        // $this->load->view('template/V_FooterTerminasiAuto', $data);
+    }
+
+    public function InsertCustomer()
     {
         $this->MikrotikModel->index();
     }
