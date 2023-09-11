@@ -33,7 +33,7 @@ if (!function_exists('changeDateFormat')) {
                         <?php foreach ($DataPelanggan as $data) : ?>
                             <div class="row">
                                 <div class="col-12 .col-md-8">
-                                    <h2 class="kwitansiJudul">INFLY NETWORKS</h2>
+                                    <h2 class="kwitansiJudul">MITRA INFLY NETWORKS</h2>
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <p class="kwitansiAlamat">Jl. Raya Bromo No.86 A, RT 10 / RW 03, <br>
