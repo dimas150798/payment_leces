@@ -86,7 +86,7 @@ if (!function_exists('changeDateFormat')) {
                                     <p class="kwitansiBody">Info dan Keluhan</p>
                                 </div>
                                 <div class="col-sm-12">
-                                    <p class="kwitansiBody">WA 083-849-268-666</p>
+                                    <p class="kwitansiBody">WA 082-233-462-911</p>
                                 </div>
 
                                 <div class="col-sm-12 mt-4">
