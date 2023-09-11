@@ -36,9 +36,9 @@ if (!function_exists('changeDateFormat')) {
                                     <h2 class="kwitansiJudul">MITRA INFLY NETWORKS</h2>
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <p class="kwitansiAlamat">Jl. Raya Bromo No.86 A, RT 10 / RW 03, <br>
-                                        Triwung Lor, Kec. Kademangan, Kota Probolinggo,
-                                        Jawa Timur - 67223, Indonesia
+                                    <p class="kwitansiAlamat">Jl. Ir Sutami RT 004 / RW 002 <br>
+                                        Kelurahan Kedunggaleng, Kecamatan Wonoasih, Kota Probolinggo
+                                        Jawa Timur, Indonesia
                                     </p>
                                 </div>
                                 <div class="col-sm-12 mt-3">
