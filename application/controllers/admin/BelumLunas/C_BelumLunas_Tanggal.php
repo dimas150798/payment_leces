@@ -103,6 +103,8 @@ class C_BelumLunas_Tanggal extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . strtoupper($dataCustomer['nama_paket']) . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
+                $row[] = $dataCustomer['phone_customer'];
+                $row[] = $dataCustomer['alamat_customer'];
                 $row[] =
                     '<div class="text-center">
                 <div class="btn-group">
@@ -137,6 +139,8 @@ class C_BelumLunas_Tanggal extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . strtoupper($dataCustomer['nama_paket']) . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
+                $row[] = $dataCustomer['phone_customer'];
+                $row[] = $dataCustomer['alamat_customer'];
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">

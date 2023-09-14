@@ -174,12 +174,14 @@ if (!function_exists('changeDateFormat')) {
                             <table id="mytable" class="table table-bordered responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th width="10%">No</th>
-                                        <th width="20%">Nama Customer</th>
-                                        <th width="20%">Name PPPOE</th>
-                                        <th width="20%" class="text-center">Tanggal Penagihan</th>
-                                        <th width="20%" class="text-center">Paket</th>
-                                        <th width="20%" class="text-center">Tarif</th>
+                                        <th width="5%">No</th>
+                                        <th width="15%">Nama Customer</th>
+                                        <th width="10%">Name PPPOE</th>
+                                        <th width="10%" class="text-center">Tanggal Penagihan</th>
+                                        <th width="10%" class="text-center">Paket</th>
+                                        <th width="10%" class="text-center">Tarif</th>
+                                        <th width="15%" class="text-center">Phone</th>
+                                        <th width="15%" class="text-center">Alamat</th>
                                         <th width="10%" class="text-center">Opsi</th>
                                     </tr>
                                 </thead>

@@ -119,6 +119,8 @@ class C_BelumLunas extends CI_Controller
 
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
+                $row[] = $dataCustomer['phone_customer'];
+                $row[] = $dataCustomer['alamat_customer'];
 
                 $row[] =
                     '<div class="text-center">
@@ -156,6 +158,8 @@ class C_BelumLunas extends CI_Controller
 
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
+                $row[] = $dataCustomer['phone_customer'];
+                $row[] = $dataCustomer['alamat_customer'];
 
                 $row[] =
                     '<div class="text-center">
