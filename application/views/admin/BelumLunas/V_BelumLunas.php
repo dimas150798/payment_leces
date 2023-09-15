@@ -21,10 +21,10 @@ if (!function_exists('changeDateFormat')) {
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
-                                <a class="btn buttonmenuatas btn-sm" href="<?php echo base_url('admin/BelumLunas/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-excel-fill.svg" alt="Bootstrap" ...> Export Excel
-                                </a>
+                                <!-- <a class="btn buttonmenuatas btn-sm" href="<?php echo base_url('admin/BelumLunas/C_ExportExcel') ?>"><img src="<?php echo base_url(); ?>vendor/bootstrap-icons/icons/file-excel-fill.svg" alt="Bootstrap" ...> Export Excel
+                                </a> -->
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <select name="forma" id='SelectOption' class="form-control">
                                     <option value="monthly"><a href="#">Monthly</a></option>
                                     <option value="day"><a href="#">Day</a></option>
