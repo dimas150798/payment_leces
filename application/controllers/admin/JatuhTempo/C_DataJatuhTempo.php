@@ -102,7 +102,9 @@ class C_DataJatuhTempo extends CI_Controller
             $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
             $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-            $row[] = '<div class="text-center">' . ($GrossAmount ? '<span class="badge bg-danger">BELUM LUNAS</span>' : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
+            $row[] = $dataCustomer['phone_customer'];
+            $row[] = $dataCustomer['alamat_customer'];
+
             $row[] =
                 '<div class="text-center">
                 <div class="btn-group">

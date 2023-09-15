@@ -93,7 +93,8 @@ if (!function_exists('changeDateFormat')) {
                                         <th width="20%" class="text-center">Tanggal</th>
                                         <th width="20%" class="text-center">Paket</th>
                                         <th width="20%" class="text-center">Tarif</th>
-                                        <th width="20%" class="text-center">Status</th>
+                                        <th width="10%" class="text-center">Phone</th>
+                                        <th width="10%" class="text-center">Alamat</th>
                                         <th width="10%" class="text-center">Opsi</th>
                                     </tr>
                                 </thead>

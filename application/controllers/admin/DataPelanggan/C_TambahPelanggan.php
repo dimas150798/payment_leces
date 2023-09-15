@@ -116,10 +116,6 @@ class C_TambahPelanggan extends CI_Controller
 
                 redirect('admin/DataPelanggan/C_TambahPelanggan');
             } else {
-                $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
-                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran');
-                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran_history');
-
                 // Tambah Pelanggan Ke Mikrotik
                 $api = connect();
                 $api->comm('/ppp/secret/add', [
@@ -130,6 +126,10 @@ class C_TambahPelanggan extends CI_Controller
                     "comment" => $deskripsi_customer,
                 ]);
                 $api->disconnect();
+
+                $this->M_CRUD->insertData($dataPelanggan, 'data_customer');
+                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran');
+                $this->M_CRUD->insertData($dataPembayaran, 'data_pembayaran_history');
 
                 // Notifikasi Tambah Data Berhasil
                 $this->session->set_flashdata('Tambah_icon', 'success');
