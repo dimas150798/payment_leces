@@ -30,14 +30,14 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="card-footer text-center">
+                                <!-- <div class="card-footer text-center">
                                     <h4 class="card-title">Pilih Tindakan</h4>
                                     <label class="switch">
                                         <input type="checkbox" id="switch-pendataan">
                                         <span class="slider round"></span>
                                     </label>
                                     <label for="switch-pendataan">Pendataan Barang</label>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
