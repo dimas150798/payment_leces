@@ -12,6 +12,33 @@
 <!-- SweetAlert 2 -->
 <script src="<?php echo base_url(); ?>vendor/SweetAlert2/sweetalert2.all.min.js"></script>
 
+<script>
+	const switchPendataan = document.getElementById('switch-pendataan');
+
+	const loginUrl = "https://leces.inflydata.net/";
+	const barangUrl = "https://intranetleces.inflydata.net/";
+
+	// const loginUrl = "/payment_leces"; // URL relatif ke form login
+	// const barangUrl = "/intranet_leces"; // URL relatif ke form barang
+
+	// Periksa apakah URL saat ini adalah "/C_FormBarang"
+	if (window.location.pathname === barangUrl) {
+		switchPendataan.checked = true; // Mengaktifkan tombol switch
+	}
+
+	switchPendataan.addEventListener('change', function() {
+		if (this.checked) {
+			// Arahkan ke form barang jika switch aktif (on)
+			window.location.href = barangUrl;
+		} else {
+			// Arahkan ke form login jika switch nonaktif (off)
+			window.location.href = loginUrl;
+		}
+	});
+</script>
+
+
+
 <!-- Alert Gagal -->
 <script>
 	<?php if ($this->session->flashdata('LoginGagal_icon')) { ?>

@@ -4,21 +4,15 @@
             <main>
 
                 <div class="container-fluid">
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center align-items-center vh-100">
                         <div class="col-lg-4">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
-
+                            <div class="card shadow-lg border-0 rounded-lg">
                                 <div class="card-header">
                                     <div class="logoLogin">
                                         <img src="<?php echo base_url(); ?>assets/img/logoSaja.png" alt="" width="60px">
-                                        <h3>My Infly Networks</h3>
+                                        <h3>Pembayaran Pelanggan</h3>
                                     </div>
-                                    <!-- <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('pesangagal'); ?>"></div> -->
-                                    <!-- <div class="notifikasiLogin">
-                                        <p><?php echo $this->session->flashdata('success'); ?></p>
-                                    </div> -->
                                 </div>
-
                                 <div class="card-body">
                                     <form id="form_login" class="user" method="POST" action="<?php echo base_url('C_FormLogin'); ?>">
                                         <div class="form-floating mb-3">
@@ -33,12 +27,17 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
                                             <button type="submit" class="button-login mat-primary second">Sign In</button>
-                                            <!-- <button class="second">Animated Toast</button> -->
                                         </div>
                                     </form>
                                 </div>
-
-
+                                <div class="card-footer text-center">
+                                    <h4 class="card-title">Pilih Tindakan</h4>
+                                    <label class="switch">
+                                        <input type="checkbox" id="switch-pendataan">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label for="switch-pendataan">Pendataan Barang</label>
+                                </div>
                             </div>
                         </div>
                     </div>
