@@ -111,11 +111,11 @@ class C_PayBelumLunas extends CI_Controller
                 </script>
                 ";
             } else {
-                if($order_id != $checkDuplicateCode->order_id){
+                if ($order_id != $checkDuplicateCode->order_id) {
                     // Notifikasi Login Berhasil
                     $this->session->set_flashdata('payment_icon', 'success');
                     $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-    
+
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPayment, 'data_pembayaran_history');
 
@@ -127,11 +127,11 @@ class C_PayBelumLunas extends CI_Controller
                     $api->disconnect();
 
                     redirect('admin/BelumLunas/C_BelumLunas');
-                }else{
+                } else {
                     // Notifikasi Login Berhasil
                     $this->session->set_flashdata('payment_icon', 'success');
                     $this->session->set_flashdata('payment_title', 'Pembayaran An. <b>' . $name_pppoe . '</b> Berhasil');
-    
+
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran');
                     $this->M_CRUD->insertData($dataPaymentDuplicate, 'data_pembayaran_history');
 
