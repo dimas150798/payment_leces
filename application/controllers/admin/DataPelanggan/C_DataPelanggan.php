@@ -50,39 +50,40 @@ class C_DataPelanggan extends CI_Controller
         $result = $this->M_Pelanggan->DataPelanggan();
 
         $no = 0;
+        $data = array();
 
         foreach ($result as $dataCustomer) {
-            $StartDate = $dataCustomer['start_date'] == NULL;
-            $StatusMikrotik = $dataCustomer['disabled'] == 'true';
+            $StartDate = $dataCustomer['start_date'] === NULL;
+            $StatusMikrotik = $dataCustomer['disabled'] === 'true';
 
             $row = array();
             $row[] = ++$no;
-            $row[] = $dataCustomer['nama_customer'];
-            $row[] = $dataCustomer['name_pppoe'];
-            $row[] = '<div class="text-center">' . $dataCustomer['phone_customer'] . '</div>';
-            $row[] = '<div class="text-center">' . $dataCustomer['nama_paket'] . '</div>';
+            $row[] = htmlspecialchars($dataCustomer['nama_customer']);
+            $row[] = htmlspecialchars($dataCustomer['name_pppoe']);
+            $row[] = '<div class="text-center">' . htmlspecialchars($dataCustomer['phone_customer']) . '</div>';
+            $row[] = '<div class="text-center">' . htmlspecialchars($dataCustomer['nama_paket']) . '</div>';
             $row[] = '<div class="text-center">' . ($StartDate ? '<span class="badge bg-danger">DATA KOSONG</span>' : changeDateFormat('d-m-Y', $dataCustomer['start_date'])) . '</div>';
             $row[] = '<div class="text-center">' . ($StatusMikrotik ? '<span class="badge bg-danger">DISABLED</span>' : '<span class="badge bg-success">ENABLE</span>') . '</div>';
 
-            $row[] =
-                '<div class="text-center">
+            $row[] = '<div class="text-center">
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false" aria-controls="dropdown">
                         Opsi
                     </button>
                     <div class="dropdown-menu text-black" style="background-color:aqua;">
-                        <a onclick="EditDataPelanggan(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Edit</a>
-                        <a onclick="TerminatedPelanggan(' . $dataCustomer['id_customer'] . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Terminated</a>
+                        <a onclick="EditDataPelanggan(' . htmlspecialchars($dataCustomer['id_customer']) . ')" class="dropdown-item text-black"></i> Edit</a>
+                        <a onclick="TerminatedPelanggan(' . htmlspecialchars($dataCustomer['id_customer']) . ')" class="dropdown-item text-black"><i class="bi bi-trash3-fill"></i> Terminated</a>
                     </div>
                 </div>
-                </div>';
+            </div>';
+
             $data[] = $row;
         }
 
-        $ouput = array(
+        $output = array(
             'data' => $data
         );
 
-        $this->output->set_content_type('application/json')->set_output(json_encode($ouput));
+        $this->output->set_content_type('application/json')->set_output(json_encode($output));
     }
 }

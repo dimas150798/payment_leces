@@ -136,6 +136,7 @@ class C_TambahPelanggan extends CI_Controller
                 redirect('admin/DataPelanggan/C_TambahPelanggan');
             } else {
                 if ($order_id != $checkDuplicateCode->order_id) {
+
                     // Tambah Pelanggan Ke Mikrotik
                     $api = connect();
                     $api->comm('/ppp/secret/add', [

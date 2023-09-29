@@ -62,6 +62,7 @@ class MikrotikModel extends CI_Model
                         'created_at'        => $value['created_at'],
                         'updated_at'        => $value['updated_at'],
                     ];
+
                     break; // Exit the inner loop since we found a match
                 }
             }
