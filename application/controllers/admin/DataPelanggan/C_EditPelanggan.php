@@ -80,7 +80,6 @@ class C_EditPelanggan extends CI_Controller
             'id_customer'       => $id_customer
         );
 
-
         // Rules form validation
         $this->form_validation->set_rules('nama_customer', 'Nama Customer', 'required');
         $this->form_validation->set_rules('start_date', 'Start Date', 'required');
