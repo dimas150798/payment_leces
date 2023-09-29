@@ -33,7 +33,7 @@ class C_ExportExcel extends CI_Controller
 
     public function index()
     {
-        $data = $this->M_Pelanggan->DataPelanggan();
+        $data = $this->M_Pelanggan->DataPelangganExcel();
 
         /* Spreadsheet Init */
         $spreadsheet = new Spreadsheet();
