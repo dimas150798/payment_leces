@@ -70,7 +70,7 @@ if (!function_exists('changeDateFormat')) {
                                         <label for="" class="form-label" style="font-weight: bold;"> Paket : <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="" value="<?php echo $data['nama_paket'] ?> / Rp.  <?php echo number_format($data['harga_paket'], 0, ',', '.') ?>" placeholder="Data Kosong" readonly>
                                     </div>
-                                    <div class="col-sm-4 mt-3">
+                                    <!-- <div class="col-sm-4 mt-3">
                                         <label for="daerah_rekening" class="form-label" style="font-weight: bold;"> Daerah Rekening : <span class="text-danger">*</span></label>
                                         <select id="daerah_rekening" name="daerah_rekening" class="form-control" required>
                                             <option value="">Daerah Rekening :</option>
@@ -80,7 +80,7 @@ if (!function_exists('changeDateFormat')) {
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="row mt-3">
