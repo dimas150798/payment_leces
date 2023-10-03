@@ -98,6 +98,7 @@ class C_DataJatuhTempo extends CI_Controller
 
             $row = array();
             $row[] = ++$no;
+            $row[] = $dataCustomer['nama_customer'];
             $row[] = $dataCustomer['name_pppoe'];
             $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
             $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
