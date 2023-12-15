@@ -104,7 +104,7 @@ class C_SudahLunas extends CI_Controller
         $TanggalAkhir               = $tahun . '-' . $bulan . '-' . $tanggal_akhir;
 
         if ($this->session->userdata('tahunGET') == NULL && $this->session->userdata('bulanGET') == NULL) {
-            $result        = $this->M_SudahLunas->SudahLunas($bulan, $tahun, $TanggalAkhir);
+            $result        = $this->M_SudahLunas->SudahLunas($this->session->userdata('bulan'), $this->session->userdata('tahun'), $this->session->userdata('TanggalAkhir'));
 
             $no = 0;
 
@@ -118,7 +118,9 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' . 'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>') . '</div>';
+                $row[] = '<div class="text-center">' . '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>' . '</div>';
+                $row[] = '<div class="text-center">' . '<span class="badge bg-">' . strtoupper($dataCustomer['keterangan']) . '</span>' . '</div>';
+
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">
@@ -128,7 +130,7 @@ class C_SudahLunas extends CI_Controller
                             <div class="dropdown-menu text-black" style="background-color:aqua;">
                                 <a onclick="KwitansiLunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kwitansi</a>
                                 <a onclick="KirimWA_Lunas(' . $dataCustomer['id_customer'] . ')"class="dropdown-item text-black"></i> Kirim WA Lunas</a>
-                            </div>
+                            </div>  
                         </div>
                     </div>';
 
@@ -155,7 +157,9 @@ class C_SudahLunas extends CI_Controller
                 $row[] = '<div class="text-center">' . ($GrossAmount ? 'Penagihan Tanggal ' . $dataCustomer['tanggal'] : changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time'])) . '</div>';
                 $row[] = '<div class="text-center">' . $dataCustomer['namaPaket'] . '</div>';
                 $row[] = '<div class="text-center">' .  'Rp. ' . number_format($dataCustomer['harga_paket'], 0, ',', '.') . '</div>';
-                $row[] = '<div class="text-center">' . ($GrossAmount ? changeDateFormat('d-m-Y / H:i:s', $dataCustomer['transaction_time']) : '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>') . '</div>';
+                $row[] = '<div class="text-center">' . '<span class="badge bg-success">' . strtoupper($dataCustomer['nama_admin']) . '</span>' . '</div>';
+                $row[] = '<div class="text-center">' . '<span class="badge bg-warning">' . strtoupper($dataCustomer['keterangan']) . '</span>' . '</div>';
+
                 $row[] =
                     '<div class="text-center">
                         <div class="btn-group">

@@ -169,6 +169,7 @@ if (!function_exists('changeDateFormat')) {
                                         <th width="20%" class="text-center">Paket</th>
                                         <th width="20%" class="text-center">Tarif</th>
                                         <th width="20%" class="text-center">Melalui</th>
+                                        <th width="20%" class="text-center">Keterangan</th>
                                         <th width="20%" class="text-center">Action</th>
                                     </tr>
                                 </thead>
