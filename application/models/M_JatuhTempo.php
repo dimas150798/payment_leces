@@ -12,7 +12,7 @@ class M_JatuhTempo extends CI_Model
         $bulan              = $convertDate[1];
         $tanggalCD          = $convertDate[2];
 
-        if ($bulan == 02 && $tanggal == 28) {
+        if ($bulan == 02 && $tanggal == 29) {
             $query   = $this->db->query("SELECT 
             data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
             data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -72,7 +72,7 @@ class M_JatuhTempo extends CI_Model
         $bulan              = $convertDate[1];
         $tanggalCD          = $convertDate[2];
 
-        if ($bulan == 02 && $tanggal == 28) {
+        if ($bulan == 02 && $tanggal == 29) {
             $query   = $this->db->query("SELECT 
             data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
             data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
@@ -132,7 +132,7 @@ class M_JatuhTempo extends CI_Model
         $bulan              = $convertDate[1];
         $tanggalCD          = $convertDate[2];
 
-        if ($bulan == 02 && $tanggal == 28) {
+        if ($bulan == 02 && $tanggal == 29) {
             $result   = $this->db->query("SELECT 
             SUM(data_paket.harga_paket) AS hargaPaket
     

@@ -196,45 +196,90 @@ class MikrotikModel extends CI_Model
 
     public function TerminasiAuto($bulan, $tahun, $TanggalAkhir, $tanggal)
     {
-        $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
-        data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
-        DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
-        data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
-        data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
-        data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
-        data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
+        if ($bulan == 02 && $tanggal == 29) {
+            $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
+            data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
+            DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
+            data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
+            data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+            data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
+            data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
+    
+            FROM data_customer
+            LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+            LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+            AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+    
+            WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$TanggalAkhir' AND
+            data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+            AND DAY(data_customer.start_date) >= '$tanggal' AND data_customer.disabled = 'false'
+    
+            GROUP BY data_customer.name_pppoe
+            ORDER BY DAY(data_customer.start_date) ASC
+            ")->result_array();
 
-        FROM data_customer
-        LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
-        LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
-        AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
+            foreach ($getData as $data) {
+                date_default_timezone_set("Asia/Jakarta");
+                $timeNow = date('H:i:s');
+                $timeOut = date('22:00:00');
 
-        WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$TanggalAkhir' AND
-        data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
-        AND DAY(data_customer.start_date) = '$tanggal' AND data_customer.disabled = 'false'
+                if ($data['transaction_time'] == null && $data['status_code'] == null) {
+                    if ($timeNow > $timeOut) {
+                        // disable secret dan active otomatis 
+                        $api = connect();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $data['id_pppoe'],
+                            "disabled" => 'true',
+                        ]);
 
-        GROUP BY data_customer.name_pppoe
-        ORDER BY DAY(data_customer.start_date) ASC
-        ")->result_array();
+                        // disable active otomatis
+                        $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                        $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                        $api->disconnect();
+                    }
+                }
+            }
+        } else {
+            $getData = $this->db->query("SELECT data_customer.id_customer, data_customer.kode_customer, data_customer.phone_customer, data_customer.nama_customer, data_customer.nama_paket, 
+            data_customer.name_pppoe, data_customer.password_pppoe, data_customer.id_pppoe, data_customer.alamat_customer, data_customer.email_customer, 
+            DAY(data_customer.start_date) as tanggal, data_customer.stop_date, data_customer.nama_area, data_customer.deskripsi_customer, data_customer.nama_sales,
+            data_pembayaran.order_id, data_pembayaran.gross_amount, data_pembayaran.biaya_admin, 
+            data_pembayaran.nama_admin, data_pembayaran.keterangan, data_pembayaran.payment_type, data_pembayaran.transaction_time, data_pembayaran.expired_date,
+            data_pembayaran.bank, data_pembayaran.va_number, data_pembayaran.permata_va_number, data_pembayaran.payment_code, data_pembayaran.bill_key, 
+            data_pembayaran.biller_code, data_pembayaran.pdf_url, data_pembayaran.status_code, data_paket.nama_paket as namaPaket, data_paket.harga_paket
 
-        foreach ($getData as $data) {
-            date_default_timezone_set("Asia/Jakarta");
-            $timeNow = date('H:i:s');
-            $timeOut = date('22:00:00');
+            FROM data_customer
+            LEFT JOIN data_paket ON data_customer.nama_paket = data_paket.nama_paket
+            LEFT JOIN data_pembayaran ON data_customer.name_pppoe = data_pembayaran.name_pppoe
+            AND MONTH(data_pembayaran.transaction_time) = '$bulan' AND YEAR(data_pembayaran.transaction_time) = '$tahun'
 
-            if ($data['transaction_time'] == null && $data['status_code'] == null) {
-                if ($timeNow > $timeOut) {
-                    // disable secret dan active otomatis 
-                    $api = connect();
-                    $api->comm('/ppp/secret/set', [
-                        ".id" => $data['id_pppoe'],
-                        "disabled" => 'true',
-                    ]);
+            WHERE data_customer.start_date BETWEEN '2020-01-01' AND '$TanggalAkhir' AND
+            data_pembayaran.transaction_time IS NULL AND data_customer.stop_date IS NULL
+            AND DAY(data_customer.start_date) = '$tanggal' AND data_customer.disabled = 'false'
 
-                    // disable active otomatis
-                    $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
-                    $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
-                    $api->disconnect();
+            GROUP BY data_customer.name_pppoe
+            ORDER BY DAY(data_customer.start_date) ASC
+            ")->result_array();
+
+            foreach ($getData as $data) {
+                date_default_timezone_set("Asia/Jakarta");
+                $timeNow = date('H:i:s');
+                $timeOut = date('22:00:00');
+
+                if ($data['transaction_time'] == null && $data['status_code'] == null) {
+                    if ($timeNow > $timeOut) {
+                        // disable secret dan active otomatis 
+                        $api = connect();
+                        $api->comm('/ppp/secret/set', [
+                            ".id" => $data['id_pppoe'],
+                            "disabled" => 'true',
+                        ]);
+
+                        // disable active otomatis
+                        $ambilid = $api->comm("/ppp/active/print", ["?name" => $data['name_pppoe']]);
+                        $api->comm('/ppp/active/remove', [".id" => $ambilid[0]['.id']]);
+                        $api->disconnect();
+                    }
                 }
             }
         }
